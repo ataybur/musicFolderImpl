@@ -21,6 +21,9 @@ import com.ataybur.folderImpl.utils.FileListType;
 import com.ataybur.folderImpl.utils.FileType;
 import com.ataybur.folderImpl.utils.FolderChangeEvent;
 import com.ataybur.folderImpl.utils.Gui;
+import com.ataybur.folderImpl.utils.Parser;
+import com.ataybur.folderImpl.utils.ParserInjection;
+import com.ataybur.folderImpl.utils.ParserType;
 
 @ApplicationScoped
 public class App2 {
@@ -52,6 +55,14 @@ public class App2 {
 		return instance.select(bankType).get();
 	}
 
+	@Produces
+	@ParserInjection
+	public Parser parser(@Any Instance<Parser> instance, InjectionPoint injectionPoint) {
+		Annotated annotated = injectionPoint.getAnnotated();
+		ParserType bankTypeAnnotation = annotated.getAnnotation(ParserType.class);
+		Class<? extends Parser> type = bankTypeAnnotation.value();
+		return instance.select(type).get();
+	}
 
 	public void start(@Observes ContainerInitialized startEvent) {
 

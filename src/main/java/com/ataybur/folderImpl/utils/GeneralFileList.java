@@ -21,10 +21,6 @@ public class GeneralFileList implements FileList {
 	
 	@Inject
 	private Gui gui;
-//	FilePane fileList = generalFileList.getGui(f,fileList);
-
-//	gui.add(folderListInstance.get(), BorderLayout.WEST);
-	
 	
 	public void observe(@Observes FileChangeEvent folderChangeEvent){
 		getGui(folderChangeEvent.getFile());

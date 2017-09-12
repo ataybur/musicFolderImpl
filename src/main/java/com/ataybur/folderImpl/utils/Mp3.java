@@ -1,67 +1,90 @@
 package com.ataybur.folderImpl.utils;
 
 public class Mp3 {
-	@MapField(key = "xmpDM:genre")
-	private String genre;
+	
+	@MapField(key = "title")
+	@ModelField(columnNumber = 0)
+	private String title;
 	
 	@MapField(key = "creator")
+	@ModelField(columnNumber = 1)
 	private String creator;
 	
 	@MapField(key = "xmpDM:album")
+	@ModelField(columnNumber = 2)
 	private String album;
 	
 	@MapField(key = "xmpDM:trackNumber")
+	@ModelField(columnNumber = 3)
 	private String trackNumber;
 	
 	@MapField(key = "xmpDM:releaseDate")
+	@ModelField(columnNumber = 4)
 	private String releaseDate;
 	
 	@MapField(key = "meta:author")
+	@ModelField(columnNumber = 5)
 	private String author;
 	
 	@MapField(key = "xmpDM:artist")
+	@ModelField(columnNumber = 6)
 	private String artist;
+
 	
 	@MapField(key = "dc:creator")
+	@ModelField(columnNumber = 7)
 	private String dcCreator;
 	
 	@MapField(key = "xmpDM:audioCompressor")
+	@ModelField(columnNumber = 8)
 	private String audioCompressor;
 	
-	@MapField(key = "title")
-	private String title;
+	@MapField(key = "xmpDM:genre")
+	@ModelField(columnNumber = 9)
+	private String genre;
 	
 	@MapField(key = "xmpDM:audioChannelType")
+	@ModelField(columnNumber = 10)
 	private String audioChannelType;
 	
 	@MapField(key = "version")
+	@ModelField(columnNumber = 11)
 	private String version;
 	
 	@MapField(key = "xmpDM:logComment")
+	@ModelField(columnNumber = 12)
 	private String logComment;
 	
 	@MapField(key = "xmpDM:audioSampleRate")
+	@ModelField(columnNumber = 13)
 	private String audioSampleRate;
 	
 	@MapField(key = "channels")
+	@ModelField(columnNumber = 14)
 	private String channels;
 	
 	@MapField(key = "dc:title")
+	@ModelField(columnNumber = 15)
 	private String dcTitle;
 	
 	@MapField(key = "Author")
+	@ModelField(columnNumber = 16)
 	private String author2;
 	
 	@MapField(key = "xmpDM:albumArtist")
+	@ModelField(columnNumber = 17)
 	private String albumArtist;
 
 	@MapField(key = "xmpDM:duration")
+	@ModelField(columnNumber = 18)
 	private String duration;
 	
 	@MapField(key = "Content-Type")
+	@ModelField(columnNumber = 19)
 	private String contentType;
 	
 	@MapField(key = "samplerate")
+	@ModelField(columnNumber = 20)
 	private String samplerate;
 
 	public String getGenre() {

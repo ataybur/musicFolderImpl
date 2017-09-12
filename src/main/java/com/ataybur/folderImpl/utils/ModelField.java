@@ -7,6 +7,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD) 
-public @interface MapField {
-	public String key();
+public @interface ModelField {
+	public int columnNumber();
 }

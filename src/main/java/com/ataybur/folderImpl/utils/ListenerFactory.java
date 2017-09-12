@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.enterprise.event.Event;
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
+import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.Annotated;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Inject;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -16,13 +21,18 @@ import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
 public class ListenerFactory {
-	
+
 	@Inject
 	private AbstractMainFrame mainFrame;
-	
+
 	@Inject
 	private Event<FolderChangeEvent> event;
-	
+
+	@Inject
+	@ParserInjection
+	@ParserType(value = AudioParser.class)
+	private Parser audioParser;
+
 	public class SharedListSelectionHandler implements ListSelectionListener {
 		private File[] fileArray;
 
@@ -30,8 +40,6 @@ public class ListenerFactory {
 			super();
 			this.fileArray = fileArray;
 		}
-
-
 
 		public void valueChanged(ListSelectionEvent arg0) {
 			ListSelectionModel lsm = (ListSelectionModel) arg0.getSource();
@@ -51,22 +59,18 @@ public class ListenerFactory {
 					if (lsm.isSelectedIndex(i)) {
 						System.out.println(" " + i);
 						File file = this.fileArray[i];
-						if(file.isFile()){
-						try {
-							String str = AudioParser.parse(file);
-							if (Desktop.isDesktopSupported()) {
-								Desktop desktop = Desktop.getDesktop();
-//								Process p = Runtime.getRuntime().exec(file.getAbsolutePath());
-								desktop.open(file);
-					            // now enable buttons for actions that are supported.
-					        }
-							JOptionPane.showMessageDialog(mainFrame, str);
-						} catch (NoSuchMethodException | SecurityException | IllegalAccessException
-								| IllegalArgumentException | InvocationTargetException | IOException | SAXException
-								| TikaException e) {
-							e.printStackTrace();
-						}
-						} else if (file.isDirectory()){
+						if (file.isFile()) {
+							try {
+								String str = audioParser.parse(file);
+								if (Desktop.isDesktopSupported()) {
+									Desktop desktop = Desktop.getDesktop();
+									desktop.open(file);
+								}
+								JOptionPane.showMessageDialog(mainFrame, str);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						} else if (file.isDirectory()) {
 							FolderChangeEvent fileChangeEvent = new FolderChangeEvent(file);
 							event.fire(fileChangeEvent);
 						}
